@@ -21,6 +21,7 @@ requirements_face_recognition.txt  só face-recognition, instalar depois com --n
 preparar_ambiente.py         detecta Windows ou Linux (WSL), acha ou baixa Python 3.13, cria o venv, instala e verifica
 tutoriais.md                 índice dos 12 tutoriais, conceitos por aula e defeitos achados na leitura
 nome_pastas.txt              lista original das 12 aulas, base para os nomes das pastas
+README.md                    apresentação do repositório no GitHub, com créditos ao professor
 CLAUDE.md                    este arquivo
 ```
 
@@ -51,7 +52,7 @@ Concluído:
 - `achados_dos_zips.md` escrito, com tabela resumo, método, detalhes por aula, checklist de pendências e bibliotecas por aula.
 - 12 tutoriais escritos (`aula_NN_Tema/tutorial_da_aula.md`), um por aula, todos com as mesmas 8 seções: visão geral, ambiente, conceitos-chave, roteiro dos scripts, passo a passo, exercícios e itens, armadilhas, glossário. O da aula 12 tem uma seção 7b com as funções esperadas do pacote `utils/` ausente. Índice em `tutoriais.md`. Verificação feita: UTF-8 sem BOM, LF, 8 seções presentes, todo script citado ao menos uma vez.
 
-Venv `.venv` (Windows) criado na raiz com Python 3.13.5 e requirements instalados em 10/09/2026, com testes de import e de backend do Keras passando (seção 6.1 do achados). `preparar_ambiente.py` automatiza isso nos dois sistemas: no Windows usa `.venv`, no Linux ou WSL usa `.venv_linux`, e se não houver Python 3.13 instala o `uv` na pasta do usuário e baixa um 3.13 isolado. Nenhum script do professor foi executado ainda. Não é repositório git.
+Venv `.venv` (Windows) criado na raiz com Python 3.13.5 e requirements instalados em 10/09/2026, com testes de import e de backend do Keras passando (seção 6.1 do achados). `preparar_ambiente.py` automatiza isso nos dois sistemas: no Windows usa `.venv`, no Linux ou WSL usa `.venv_linux`, e se não houver Python 3.13 instala o `uv` na pasta do usuário e baixa um 3.13 isolado. Nenhum script do professor foi executado ainda. Repositório git em `main`, remoto público `https://github.com/Dev-RMV/Aulas_Visao_Computacional` (criado em 10/09/2026). Fim de linha LF fixado por `.gitattributes` e `core.autocrlf=false` local. Venvs, `__pycache__`, `saidas/`, `resultados/`, modelos `.keras`/`.h5`/`.tflite` e `aula_12_DNN_Caffe/models/` ficam fora do git.
 
 ## Pendências (resumo, detalhes em achados_dos_zips.md seção 4)
 
@@ -89,3 +90,4 @@ Ambiente:
 - 10/09/2026: chegaram os dois zips que faltavam da aula 09. Aula reestruturada em três subpastas, 11 scripts novos, tutorial reescrito.
 - 10/09/2026: `requirements.txt` único escrito, `.venv` criado com Python 3.13, instalação e testes de runtime feitos (Keras 3.15 com backend TF 2.21, OpenCV 4.14 contrib, face_recognition). Pino `setuptools<82` adicionado.
 - 10/09/2026: `preparar_ambiente.py` escrito e testado no Windows (`.venv`) e no WSL Ubuntu 22.04 (`.venv_linux`, Python 3.13 obtido via uv).
+- 10/09/2026: git iniciado, `README.md`, `.gitignore` e `.gitattributes` criados, repositório público `Dev-RMV/Aulas_Visao_Computacional` publicado com 289 arquivos.
