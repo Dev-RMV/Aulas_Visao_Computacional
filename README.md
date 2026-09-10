@@ -1,10 +1,12 @@
 # Aulas de Visão Computacional
 
-Repositório de estudo da disciplina de Visão Computacional. Reúne, organizados por aula, os códigos apresentados em sala pelo **Professor Vitor Amadeu (PVA)**, prontos para rodar em Python, mais um tutorial por aula escrito a partir desses códigos.
+Repositório de estudo da disciplina de Visão Computacional. Reúne, organizados por aula, os códigos apresentados em sala pelo **Professor Vitor Amadeu (PVA)**, prontos para rodar em Python. Para cada aula há também um tutorial de estudo, escrito por mim a partir da leitura desses códigos.
 
 ## Créditos
 
-Todo o material didático, os scripts de exemplo, os enunciados dos exercícios e os recursos de apoio são de autoria do **Professor Vitor Amadeu (PVA)**, que os disponibiliza aos alunos pelo Google Drive da disciplina. Este repositório apenas organiza esse material para estudo, sem alterar os scripts do professor. Os tutoriais, o relatório de achados e o script de preparação do ambiente foram escritos a partir da leitura dos scripts.
+**Do Professor Vitor Amadeu (PVA):** os scripts de exemplo de todas as aulas, os zips originais em `referencia_de_aula/`, os enunciados dos exercícios e os recursos de apoio. Ele disponibiliza esse material aos alunos pelo Google Drive da disciplina. Aqui os scripts estão exatamente como ele os escreveu, apenas organizados em pastas e, quando vieram em documentos Word, transcritos para `.py`.
+
+**Deste repositório (material de estudo, não do professor):** os tutoriais `tutorial_da_aula.md` de cada aula, o índice `tutoriais.md`, o relatório `achados_dos_zips.md`, o `requirements.txt` e o script `preparar_ambiente.py`. Os tutoriais explicam os conceitos com base no que os scripts fazem e citam trechos deles, mas foram escritos por mim com auxílio de IA (Claude), e não pelo professor. Qualquer erro de interpretação nos tutoriais é meu, não dele.
 
 ## As 12 aulas
 
