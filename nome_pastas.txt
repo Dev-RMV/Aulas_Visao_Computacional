@@ -1,0 +1,23 @@
+Aula 1 – OpenCV
+
+Aula 2 – Câmera
+
+Aula 3 – ROI SURF etc
+
+Aula 4 – Tensor
+
+Aula 5 – HSV
+
+Aula 6 – Reconhecimento facial
+
+Aula 7 – Homografia
+
+Aula 8 – TensorFlow Keras
+
+Aula 9 – HOG e SVM
+
+Aula 10 – Rastreamento
+
+Aula 11 – MNIST
+
+Aula 12 – DNN e Caffe

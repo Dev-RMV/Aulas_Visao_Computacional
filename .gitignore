@@ -1,0 +1,27 @@
+# Ambientes virtuais (criados por preparar_ambiente.py)
+.venv/
+.venv_linux/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Saídas geradas ao rodar os exemplos
+**/saidas/*
+!**/saidas/.gitkeep
+**/resultados/
+aula_08_TensorFlow_Keras/dataset/
+aula_08_TensorFlow_Keras/modelos/
+aula_10_Rastreamento/exemplos_em_python/output/*
+!aula_10_Rastreamento/exemplos_em_python/output/.gitkeep
+
+# Modelos grandes baixados à parte (aula 12: Caffe, licença própria)
+aula_12_DNN_Caffe/models/
+*.keras
+*.h5
+*.tflite
+
+# Sistema
+.DS_Store
+Thumbs.db

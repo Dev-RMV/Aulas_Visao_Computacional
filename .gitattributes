@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.zip binary
+*.mp4 binary
+*.joblib binary
+*.png binary
+*.jpg binary
+*.jpeg binary

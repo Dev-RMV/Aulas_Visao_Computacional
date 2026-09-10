@@ -1,0 +1,1 @@
+Esta pasta contém os arquivos extraídos do zip (docx) do PVA e transformados para arquivos .py
