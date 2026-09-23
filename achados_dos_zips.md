@@ -1,13 +1,13 @@
 # Achados dos zips de referência
 
-Registro do processamento dos zips baixados do Google Drive do Professor Vitor Amadeu (PVA), feito em 06/09/2026.
+Registro do processamento dos zips baixados do Google Drive do Professor Vitor Amadeu (PVA), feito em 06/09/2026 (aulas 01 a 12) e em 22/09/2026 (aulas 13 a 16).
 
 Cada `aula_NN_Tema/` tem duas subpastas:
 
 - `referencia_de_aula/`: README e o zip original, intocado.
 - `exemplos_em_python/`: README e os scripts prontos para uso.
 
-Os nomes das pastas seguem `nome_pastas.txt`, sem acentos e com `_` no lugar de espaços. A aula 3 ficou `aula_03_ROI_SURF_etc`.
+Os nomes das pastas seguem `nome_pastas.txt`, sem acentos e com `_` no lugar de espaços. A aula 3 ficou `aula_03_ROI_SURF_etc`. As aulas 13 a 16, acrescentadas à lista em 22/09/2026, ficaram `aula_13_YOLO_SSD`, `aula_14_OpenCV_DNN`, `aula_15_HSV_ORB_DeepLabV3_ResNet50` (a lista escreve "ResNET50"; a pasta usa a grafia usual do modelo) e `aula_16_Calibracao`.
 
 ## 1. Resumo
 
@@ -25,10 +25,14 @@ Os nomes das pastas seguem `nome_pastas.txt`, sem acentos e com `_` no lugar de 
 | 10 Rastreamento | `rastreamento_aula_exemplos-20260906T170117Z-1-001.zip` | 13 .py | 13 | `README.md`, `requirements.txt`, `data/synthetic_motion.mp4` | Sim |
 | 11 MNIST | `exemplos-20260906T170224Z-1-001.zip` | 33 .py | 33 | – | Parcial: falta `data/real_digits/` |
 | 12 DNN e Caffe | `exemplos-20260906T170305Z-1-001.zip` | 36 .py | 36 | – | **Não**: falta o pacote `utils/`, os modelos Caffe e os dados |
+| 13 YOLO e SSD | `exemplos_yolo_ssd_tracking_incrementais-20260923T023509Z-1-001.zip` | 36 .py | 36 | `GUIA_PROFESSOR.md`, notebook `.ipynb` | Parcial: 11 a 15 e 29 pedem `ultralytics`, modelos e mídia reais |
+| 14 OpenCV DNN | `exemplos_opencv_dnn_incrementais-20260923T023413Z-1-001.zip` | 31 .py | 31 | `requirements.txt` do professor | Sim, com internet na primeira vez (MobileNetV2 e rótulos); falta o notebook que o 28 cita |
+| 15 HSV, ORB, DeepLabV3, ResNet50 | `exemplos_segmentacao_integrativa_incrementais-20260923T023649Z-1-001.zip` | 36 .py | 36 | – | Sim, com internet na primeira vez (pesos do torchvision); falta o relatório modelo que o 34 cita |
+| 16 Calibração | `exemplos_calibracao_ar_sinteticos-20260923T023602Z-1-001.zip` | 31 .py | 31 | `dados_sinteticos/` (20 PNG), `saidas/04_cantos_detectados.png` | Sim |
 
-Total: 219 scripts (208 em 06/09/2026, mais 11 da aula 09 em 10/09/2026). Todos passam em `py_compile` sem erro de sintaxe.
+Total: 353 scripts (208 em 06/09/2026, mais 11 da aula 09 em 10/09/2026, mais 134 das aulas 13 a 16 em 22/09/2026). Todos passam em `py_compile` sem erro de sintaxe, no Python 3.13 do venv.
 
-Só as aulas 01 e 02 vieram como documentos Word. As aulas 03 a 12 já vieram com `.py` prontos e foram apenas copiadas.
+Só as aulas 01 e 02 vieram como documentos Word. As aulas 03 a 16 já vieram com `.py` prontos e foram apenas copiadas.
 
 ## 2. Método
 
@@ -41,13 +45,14 @@ Só as aulas 01 e 02 vieram como documentos Word. As aulas 03 a 12 já vieram co
 - Nomes: quando o docstring cita o nome do arquivo, esse nome é usado, porque os scripts se referenciam entre si. Sem citação, o prefixo é o número do título "Exemplo NN" e o resto vem do título.
 - Só defeitos de transcrição foram corrigidos e estão listados abaixo. O resto ficou fiel ao professor, inclusive imports duplicados e argumentos não usados.
 
-### Cópia dos .py prontos (aulas 03 a 12)
+### Cópia dos .py prontos (aulas 03 a 16)
 
 - A pasta de topo do zip (`exemplos/`, `rastreamento_aula_exemplos/`, `01_fundamentos_convolucao/`) foi achatada para dentro de `exemplos_em_python/`. Subpastas abaixo dela foram preservadas.
 - Pastas `__pycache__` foram ignoradas.
 - Arquivos de apoio (`utils.py`, `requirements.txt`, README, dados) foram copiados junto.
 - Cada arquivo foi conferido por checksum contra o original. Única alteração: um arquivo com CRLF foi normalizado para LF.
 - Se o zip traz um `README.txt` na raiz, ele é salvo como `README_do_professor.txt` para não sobrescrever o nosso.
+- Aulas 13 a 16 (22/09/2026): os quatro zips tinham uma única pasta de topo, achatada para `exemplos_em_python/`. Todos os arquivos de texto já vinham em UTF-8 sem BOM e com LF, então nenhuma alteração foi necessária: cada arquivo foi conferido byte a byte contra o zip. Só o `__pycache__` da aula 16 (Python 3.12) foi ignorado. Pastas de saída que os scripts usam sem criar (`saidas/` nas quatro aulas, `relatorios/` na 13, `relatorio/` na 15) receberam um `.gitkeep`, e o `.gitignore` deixa de fora o que os scripts geram ou baixam (`dados/`, `modelos/`, `data/`, `imagens/`, pesos `.pt`, `.onnx`, `.weights`).
 
 ## 3. Detalhes por aula
 
@@ -173,6 +178,41 @@ Os docstrings dizem "Exemplo 09" a "Exemplo 19", continuando a numeração da au
 - O script 02 cria as pastas vazias. O 03 localiza o Haar via `cv2.data`.
 - Precisa de `tensorflow`, `sklearn`, `pandas`, `matplotlib`, `cv2`. O `__pycache__` do zip era de Python 3.12.
 
+### Aula 13 – YOLO e SSD
+
+- 35 scripts numerados de 01 a 35 mais `vision_utils.py`, `GUIA_PROFESSOR.md` e `notebook_pipeline_yolo_ssd_tracking.ipynb`. Tema: detecção de objetos em tempo real (caixas, confiança, NMS, FPS e latência), modelos reais (YOLOv8 via Ultralytics, YOLOv4-tiny e SSD MobileNet via `cv2.dnn`), rastreamento por IoU com IDs persistentes, trilhas, contagem em linha virtual, ID switches, e análise ética de contagem por drone.
+- Raiz dos caminhos é a pasta dos scripts (`Path(__file__).resolve().parent`). O `01_ambiente_e_pastas.py` cria `dados/`, `saidas/`, `modelos/` e `relatorios/`. Os scripts 04 e 10 gravam em `saidas/` e o 33 em `relatorios/` sem criar a pasta, por isso `saidas/.gitkeep` e `relatorios/.gitkeep` foram adicionados. `dados/` e `modelos/` ficam fora do git.
+- Autossuficiente até o 10 e de 16 a 35: `vision_utils.py` desenha uma rua sintética (960x540, MJPG a 20 fps) com pessoa, carro, bicicleta e ônibus, e um `fake_detector` que devolve caixas com jitter e uma duplicata de cada uma para o NMS ter o que suprimir. O `IoUTracker` faz associação gulosa por IoU.
+- **Precisam de material extra:** 11 (`ultralytics` mais `dados/imagem_teste.jpg`), 12 e 29 (`ultralytics` mais `dados/video_real.mp4`), 13 (`modelos/yolov8n.onnx`, exportado com `yolo export model=yolov8n.pt format=onnx imgsz=640`, mais a imagem), 14 (`modelos/yolov4-tiny.cfg`, `yolov4-tiny.weights` e `coco.names`, do repositório darknet de AlexeyAB), 15 (`modelos/frozen_inference_graph.pb` do SSD MobileNet v2 COCO do TensorFlow model zoo e `ssd_mobilenet_v2_coco.pbtxt` gerado pelo `tf_text_graph_ssd.py` do OpenCV). Os scripts 11, 12 e 29 avisam e encerram sem o `ultralytics`; 13, 14 e 15 avisam e encerram sem os arquivos.
+- `YOLO("yolov8n.pt")` baixa o peso no diretório de trabalho, não em `modelos/`; o 16, que mede tamanho de arquivo, só encontra o `.pt` se ele for copiado para lá.
+- 17, 18, 30 e 32 são tabelas-modelo com zeros ou `None` para o aluno preencher com medições; 20 e 33 usam números fixos de exemplo (24,5 e 31,2 FPS). O 27 (CSRT) só imprime três linhas de exemplo. O notebook usa `Path.cwd()`, então o Jupyter deve ser aberto de dentro de `exemplos_em_python/`; o pacote `notebook` não está no ambiente unificado.
+- Precisa de `cv2`, `numpy`, `pandas`, `matplotlib` e, opcionalmente, `ultralytics`. Nenhum `__pycache__` veio no zip.
+
+### Aula 14 – OpenCV DNN
+
+- 30 scripts numerados de 01 a 30 mais `dnn_utils.py` e o `requirements.txt` do professor (`opencv-python`, `numpy`, `pillow`, `psutil`, `tensorflow`, `pandas`, `matplotlib`, `notebook`). Tema: classificação com MobileNetV2 do Keras convertida para TensorFlow Lite e executada pelo `cv2.dnn` (`blobFromImage`, `readNetFromTFLite`, `forward`, top-3), comparação de latência, memória e acurácia entre OpenCV DNN e Keras, e um pipeline integrado com `undistort`, ROI por HSV, ORB, HOG ou Haar e DNN na ROI.
+- Raiz dos caminhos é a pasta dos scripts. `dnn_utils.ensure_dirs()` cria `data/classificacao/`, `data/pipeline/`, `modelos/` e `saidas/`, e é chamado por quase todos os scripts. `data/` e `modelos/` ficam fora do git; `saidas/` tem `.gitkeep`.
+- Fluxo obrigatório: o 07 baixa a MobileNetV2 com pesos ImageNet (para `~/.keras/models/`, na primeira vez) e grava `modelos/mobilenetv2_imagenet.tflite`; 08 a 12, 14, 16, 18, 24, 25, 26 e 30 dependem desse arquivo. O 05 baixa `imagenet_labels.txt` do GitHub; sem ele os rótulos viram `classe_000` a `classe_999`. O `cv2.dnn.readNetFromTFLite` existe no OpenCV 4.14 do venv.
+- **Defeito:** a mensagem de erro de `get_opencv_net` em `dnn_utils.py` manda executar "06_converter_keras_para_tflite.py", mas o conversor é o 07. Mantido como está.
+- **Falta:** o notebook `notebooks/pipeline_integrado_dnn.ipynb` que o 28 diz ter sido fornecido não veio no zip. Também faltam as 10 fotos reais que o 01 pede em `data/classificacao/` e o preenchimento de `data/labels_top1.csv` (o 03 cria o CSV com a coluna de rótulos vazia e o 18 termina com 0/0 sem ela). Sem fotos reais o 03 gera 10 imagens sintéticas, que servem só para testar o fluxo.
+- O 29 é pseudocódigo da webcam, deixado como desafio de laboratório. O 20, 25, 26 e 30 usam `DEFAULT_K` e `DEFAULT_DIST` fixos para o `undistort`. Precisa de `cv2`, `numpy`, `tensorflow`, `pandas`, `psutil`. Nenhum `__pycache__` veio no zip.
+
+### Aula 15 – HSV, ORB, DeepLabV3, ResNet50
+
+- 35 scripts numerados de 01 a 35 mais `seg_utils.py`. Tema: segmentação semântica para robótica e veículos autônomos, partindo de cenas sintéticas de rua com máscara ideal de 8 classes, passando por segmentação HSV da pista com morfologia, IoU contra a máscara ideal, FCN-ResNet50 e DeepLabV3-ResNet50 pré-treinados do torchvision, medição de tempo e memória, e terminando em um pipeline integrativo (undistort, HSV, ORB, detector clássico) com relatório, diagrama Mermaid, análise de orçamento de 5 W e checklist de entrega.
+- Raiz dos caminhos é a pasta dos scripts. `seg_utils.ensure()` cria `imagens/` e `saidas/`, chamado por `salvar_cenas` em quase todos os scripts. **A pasta `relatorio/` nunca é criada pelos scripts**, e 22, 29 e 30 gravam nela; por isso `relatorio/.gitkeep` foi adicionado. `imagens/` (cenas geradas) e o conteúdo de `relatorio/` ficam fora do git.
+- Precisam de `torch` e `torchvision`: 09, 10, 11, 15, 17 e 18. Os pesos (`FCN_ResNet50_Weights.DEFAULT` e `DeepLabV3_ResNet50_Weights.DEFAULT`, COCO com os 21 rótulos VOC) são baixados para `~/.cache/torch/hub/checkpoints/` na primeira execução, cerca de 135 MB e 160 MB. O 20 usa `tabulate`, que não aparece em nenhum requirements do professor. O 19 usa `psutil`.
+- 12, 13, 14 e 16 dependem de `saidas/11_mask_fcn.png`, gerado pelo 11, e param com aviso se ele não existir.
+- **Falta:** `relatorio/RELATORIO_INTEGRATIVO_MODELO.md`, que o 34 lê; sem ele o script só imprime um aviso. O termo "DR4" (33 e 35) não é definido no material.
+- Como a cena sintética não tem objetos que a rede reconheça, a máscara do FCN sai quase toda classe 0; os overlays só fazem sentido com fotos reais de rua. Precisa de `cv2`, `numpy`, `Pillow`, `torch`, `torchvision`, `psutil`, `tabulate`. Nenhum `__pycache__` veio no zip.
+
+### Aula 16 – Calibração
+
+- 30 scripts numerados de 01 a 30 mais `synthetic_utils.py`. Tema: calibração de câmera com tabuleiro de xadrez em um laboratório virtual (câmera sintética com K conhecida), `findChessboardCorners`, `cornerSubPix`, `calibrateCamera`, erro de reprojeção, `undistort`, `solvePnP`, `Rodrigues`, `projectPoints`, eixos e cubo em realidade aumentada, efeito do ruído e da pouca variedade de poses, e a ponte para a webcam real.
+- Veio completo: `dados_sinteticos/` com 20 PNG (`calib_01.png` a `calib_18.png`, `tabuleiro_base.png`, `vista_unica.png`) e `saidas/04_cantos_detectados.png`, saída do próprio professor. Os PNG de `dados_sinteticos/` ficam no git; `saidas/` é ignorada e recebeu `.gitkeep`. O zip trazia `__pycache__` de Python 3.12.
+- Raiz dos caminhos é a pasta dos scripts. Só precisa de `cv2` e `numpy`. Autossuficiente: o 03 (e todo script que chama `generate_dataset`) regera as 18 imagens, deterministas e iguais às do zip.
+- **Detalhes:** 25, 27 e 28 chamam `generate_dataset(noisy=True)` e sobrescrevem `calib_01.png` a `calib_18.png` com versões ruidosas (blur 0,8 e ruído gaussiano 2,0, sem semente); depois deles os scripts 08 a 16 calibram com imagens ruidosas até o 03 regravar as limpas, e o `git status` acusa os PNG modificados. O 26 grava `pouca_var_00.png` a `pouca_var_11.png`, o 23 grava `video_tabuleiro.avi` e o 13 grava `camera_sintetica.npz`, todos fora do git. O 21 não checa o retorno de `find_refined_corners` antes do `solvePnP`.
+
 ## 4. Pendências
 
 Material a providenciar antes de rodar:
@@ -184,12 +224,17 @@ Material a providenciar antes de rodar:
 - [ ] **Aula 11:** fotos `0.jpg` a `9.jpg` em `exemplos_em_python/data/real_digits/`.
 - [ ] **Aula 12:** pacote `aula_12_DNN_Caffe/utils/` (`face_utils.py`, `tf_utils.py`), os 4 arquivos Caffe, `data/faces_teste/` e `data/utkface_sample/`.
 - [ ] **Aula 03:** confirmar se esse zip agregado é mesmo o da aula 3.
+- [ ] **Aula 13:** mídia real em `exemplos_em_python/dados/` (`imagem_teste.jpg`, `video_real.mp4`) e modelos em `exemplos_em_python/modelos/` (`yolov8n.onnx` exportado pelo ultralytics; `yolov4-tiny.cfg`, `yolov4-tiny.weights`, `coco.names`; `frozen_inference_graph.pb` e `ssd_mobilenet_v2_coco.pbtxt`). Jupyter à parte para abrir o notebook.
+- [ ] **Aula 14:** o notebook `notebooks/pipeline_integrado_dnn.ipynb` citado pelo 28 não veio no zip. Para a atividade: 10 fotos reais em `exemplos_em_python/data/classificacao/` e a coluna `label_esperado` de `data/labels_top1.csv` preenchida. Internet na primeira execução do 05 e do 07.
+- [ ] **Aula 15:** `exemplos_em_python/relatorio/RELATORIO_INTEGRATIVO_MODELO.md` citado pelo 34 não veio no zip. Fotos reais de rua para os overlays do FCN fazerem sentido. Internet na primeira execução de 10, 11, 15, 17 e 18.
+- [x] **Aula 16:** veio completa, nada a providenciar.
 
 Ambiente:
 
-- [ ] O professor usou Python 3.12 (aulas 04, 05, 06, 12) e 3.13 (aula 10). A máquina local tem Python 3.14.3. Confirmar se TensorFlow, dlib e face_recognition têm wheel para 3.14, senão criar um venv com 3.12.
-- [ ] `dlib` e `face_recognition` (aulas 03 e 06) costumam exigir wheel pré-compilado no Windows.
-- [ ] `opencv-contrib-python` para o SURF opcional da aula 03.
+- [x] O professor usou Python 3.12 (aulas 04, 05, 06, 12, 16) e 3.13 (aula 10). A máquina local tem Python 3.14.3. Resolvido em 10/09/2026 com o venv de Python 3.13 (seção 6).
+- [x] `dlib` e `face_recognition` (aulas 03 e 06) costumam exigir wheel pré-compilado no Windows. Resolvido com `dlib-bin` e `--no-deps` (seção 6).
+- [x] `opencv-contrib-python` para o SURF opcional da aula 03. Instalado; o SURF continua bloqueado por ser nonfree, o script cai no ORB (seção 6).
+- [x] Aulas 13 a 16 (22/09/2026): `torch`, `torchvision`, `tabulate` e as dependências do `ultralytics` entraram no `requirements.txt`; o `ultralytics` entrou em `requirements_ultralytics.txt` com `--no-deps` (seção 6).
 
 ## 5. Bibliotecas de terceiros por aula
 
@@ -209,12 +254,16 @@ Levantado por análise dos imports. Módulos locais e da biblioteca padrão fora
 | 10 Rastreamento | cv2, numpy, pandas, matplotlib |
 | 11 MNIST | cv2, numpy, pandas, matplotlib, sklearn, tensorflow |
 | 12 DNN e Caffe | cv2, numpy, pandas, matplotlib, sklearn, tensorflow |
+| 13 YOLO e SSD | cv2, numpy, pandas, matplotlib, ultralytics (opcional: 11, 12, 29) |
+| 14 OpenCV DNN | cv2, numpy, tensorflow, pandas, psutil |
+| 15 HSV, ORB, DeepLabV3, ResNet50 | cv2, numpy, PIL, torch, torchvision, psutil, tabulate |
+| 16 Calibração | cv2, numpy |
 
 Os nomes de pacote e as versões fixadas estão em `requirements.txt` na raiz. A justificativa está na seção 6.
 
-## 6. Ambiente unificado (`requirements.txt`, 10/09/2026)
+## 6. Ambiente unificado (`requirements.txt`, 10/09/2026, ampliado em 22/09/2026)
 
-Objetivo: um único venv que rode todos os 219 scripts sem conflito. Versões conferidas no PyPI em 10/09/2026. O venv `.venv` foi criado na raiz com o Python 3.13.5 da máquina, os dois requirements foram instalados e os testes de runtime abaixo passaram.
+Objetivo: um único venv que rode todos os 353 scripts sem conflito. Versões conferidas no PyPI em 10/09/2026 (aulas 01 a 12) e em 22/09/2026 (aulas 13 a 16). O venv `.venv` foi criado na raiz com o Python 3.13.5 da máquina, os requirements foram instalados e os testes de runtime abaixo passaram.
 
 | Decisão | Motivo |
 |---|---|
@@ -228,6 +277,9 @@ Objetivo: um único venv que rode todos os 219 scripts sem conflito. Versões co
 | **dlib-bin==20.0.1** | O `dlib` do PyPI é só código-fonte e exige CMake e Visual Studio. O `dlib-bin` traz o mesmo módulo compilado, com wheel para 3.10 a 3.14. |
 | **face-recognition==1.3.0 com `--no-deps`** | Declara dependência de `dlib`, que o pip tentaria compilar. Por isso fica em `requirements_face_recognition.txt`, instalado depois com `--no-deps`. As dependências dele (`face-recognition-models`, `Click`, `Pillow`, `numpy`) já estão no principal. Efeito colateral esperado: `pip check` reclama que falta `dlib`. Ignorar. |
 | **setuptools<82** | O setuptools 82 (fevereiro de 2026) removeu `pkg_resources`, que o `face-recognition-models` 0.3.0 usa para achar os `.dat`. Sem esse pino o `import face_recognition` falha. O TF exige setuptools sem teto, então não há conflito. |
+| **torch==2.14.0, torchvision==0.29.0** (22/09/2026) | Aula 15 (FCN-ResNet50 e DeepLabV3 do torchvision) e base do `ultralytics` da aula 13. Mais recentes no PyPI em 22/09/2026, com wheel para 3.13; o torchvision 0.29 é o par do torch 2.14. A wheel `torch` do PyPI é só CPU no Windows (aparece como `2.14.0+cpu`); para GPU, usar o índice de pytorch.org. Os pesos dos modelos são baixados para `~/.cache/torch/hub/checkpoints/` na primeira execução. Instalado com `-c requirements.txt` como restrição, para não mexer nos pinos anteriores: numpy continuou 2.5.3 e nada foi rebaixado. |
+| **ultralytics==8.4.160 com `--no-deps`** (22/09/2026) | Aula 13, scripts 11, 12 e 29 (YOLOv8n). Declara dependência de `opencv-python!=4.13.0.90,>=4.7.0`, que o pip instalaria por cima do `opencv-contrib-python` (mesmo módulo `cv2`, e o `cv2.face` da aula 03 sumiria). Mesma solução do face-recognition: fica em `requirements_ultralytics.txt` e entra com `--no-deps`; as dependências dele (`torch`, `torchvision`, `numpy`, `matplotlib`, `Pillow`, `PyYAML`, `requests`, `psutil`, `polars`, `cloudpickle`, `filelock`, `nvidia-ml-py`, `ultralytics-thop`, `ultralytics-platform`) estão no `requirements.txt`, fixadas nas versões instaladas. Efeito colateral esperado: `pip check` também reclama que falta `opencv-python`. Ignorar. Os extras de exportação (`onnx`, para o `yolo export` do script 13) não foram instalados. |
+| **tabulate==0.10.0, psutil==7.2.2** (22/09/2026) | `tabulate` é importado pelo script 20 da aula 15 e não aparece em nenhum requirements do professor. `psutil` (aulas 14 e 15) já estava no venv como dependência indireta e passou a ser pino explícito. |
 
 Instalação, no PowerShell, a partir da raiz do projeto:
 
@@ -237,6 +289,7 @@ py -3.13 -m venv .venv
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 pip install --no-deps -r requirements_face_recognition.txt
+pip install --no-deps -r requirements_ultralytics.txt
 ```
 
 ### 6.1 Verificação feita no venv (10/09/2026)
@@ -247,9 +300,18 @@ pip install --no-deps -r requirements_face_recognition.txt
 - OpenCV 4.14.0 com `cv2.face` (LBPH cria), `cv2.dnn`, `SIFT_create`, `HOGDescriptor` com o detector de pedestres. SURF presente mas bloqueado (nonfree).
 - `dlib` 20.0.1 e `face_recognition` importam e `face_locations` roda.
 
+Acréscimo de 22/09/2026 (aulas 13 a 16), no mesmo venv:
+
+- `torch` 2.14.0+cpu e `torchvision` 0.29.0+cpu importam; `fcn_resnet50`, `deeplabv3_resnet50` e `transforms.Compose` com `Normalize` funcionam; os pesos `DEFAULT` das duas redes declaram 21 categorias. Uma operação de tensor roda. `torch.cuda.is_available()` é falso, como esperado na wheel do PyPI.
+- `ultralytics` 8.4.160 importa e `from ultralytics import YOLO` funciona; na primeira importação ele grava `%APPDATA%\Ultralytics\settings.json`. O peso `yolov8n.pt` só é baixado quando um script chama `YOLO("yolov8n.pt")`.
+- `tabulate` 0.10.0 e `psutil` 7.2.2 importam.
+- Depois da instalação: OpenCV continua 4.14.0 com `cv2.face`, `cv2.dnn.readNetFromTFLite` (aula 14) e `SIFT_create`; TensorFlow 2.21 e Keras 3.15 intactos; `face_recognition` intacto; só `opencv-contrib-python` instalado, nenhum `opencv-python`.
+- `pip check`: as duas únicas queixas são `face-recognition requires dlib` e `ultralytics requires opencv-python`, ambas esperadas.
+- `py preparar_ambiente.py` rodado de novo depois das mudanças: venv reaproveitado, os três requirements instalados, verificação (agora com torch, torchvision, tabulate, psutil e ultralytics) concluída sem falhas em 0,1 min.
+
 ### 6.2 Script `preparar_ambiente.py` (Windows e Linux)
 
-Automatiza a seção 6 inteira: detecta o sistema (Windows, Linux ou WSL), procura um Python 3.13 (`py -3.13`, `python3.13`, `python3`), e se não achar instala o `uv` na pasta do usuário e baixa com ele um Python 3.13 isolado, sem administrador. Cria `.venv` no Windows e `.venv_linux` no Linux (nomes diferentes porque a pasta do projeto pode ser vista pelos dois via `/mnt/c`), instala os dois requirements, no Linux confere `libGL.so.1` e `libglib-2.0.so.0` via `ldconfig`, e roda a verificação da seção 6.1. Flags: `--recriar`, `--sem-verificacao`, `--venv-dir`, `--python`.
+Automatiza a seção 6 inteira: detecta o sistema (Windows, Linux ou WSL), procura um Python 3.13 (`py -3.13`, `python3.13`, `python3`), e se não achar instala o `uv` na pasta do usuário e baixa com ele um Python 3.13 isolado, sem administrador. Cria `.venv` no Windows e `.venv_linux` no Linux (nomes diferentes porque a pasta do projeto pode ser vista pelos dois via `/mnt/c`), instala os três requirements (o principal e os dois com `--no-deps`, desde 22/09/2026), no Linux confere `libGL.so.1` e `libglib-2.0.so.0` via `ldconfig`, e roda a verificação da seção 6.1, que desde 22/09/2026 também cobre torch, torchvision, tabulate, psutil e ultralytics. Flags: `--recriar`, `--sem-verificacao`, `--venv-dir`, `--python`.
 
 Testado em 10/09/2026:
 

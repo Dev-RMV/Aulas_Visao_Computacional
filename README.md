@@ -8,7 +8,7 @@ Repositório de estudo da disciplina de Visão Computacional. Reúne, organizado
 
 **Deste repositório (material de estudo, não do professor):** os tutoriais `tutorial_da_aula.md` de cada aula, o índice `tutoriais.md`, o relatório `achados_dos_zips.md`, o `requirements.txt` e o script `preparar_ambiente.py`. Os tutoriais explicam os conceitos com base no que os scripts fazem e citam trechos deles, mas foram escritos por mim com auxílio de IA (Claude), e não pelo professor. Qualquer erro de interpretação nos tutoriais é meu, não dele.
 
-## As 12 aulas
+## As 16 aulas
 
 | Aula | Tema | Tutorial |
 |---|---|---|
@@ -24,6 +24,10 @@ Repositório de estudo da disciplina de Visão Computacional. Reúne, organizado
 | 10 | Rastreamento: MOG2, KNN, CamShift, Kalman | [tutorial](aula_10_Rastreamento/tutorial_da_aula.md) |
 | 11 | MNIST: MLP, CNN, regularização, dígitos reais | [tutorial](aula_11_MNIST/tutorial_da_aula.md) |
 | 12 | DNN e Caffe: idade e gênero, UTKFace, MobileNetV2, TFLite | [tutorial](aula_12_DNN_Caffe/tutorial_da_aula.md) |
+| 13 | YOLO e SSD: detecção, NMS, FPS, rastreamento por IoU | [tutorial](aula_13_YOLO_SSD/tutorial_da_aula.md) |
+| 14 | OpenCV DNN: MobileNetV2 do Keras ao cv2.dnn, TFLite, pipeline integrado | [tutorial](aula_14_OpenCV_DNN/tutorial_da_aula.md) |
+| 15 | Segmentação semântica: HSV, ORB, FCN-ResNet50, DeepLabV3 | [tutorial](aula_15_HSV_ORB_DeepLabV3_ResNet50/tutorial_da_aula.md) |
+| 16 | Calibração de câmera e realidade aumentada | [tutorial](aula_16_Calibracao/tutorial_da_aula.md) |
 
 O índice completo, com os conceitos de cada aula e os detalhes encontrados na leitura dos scripts, está em [tutoriais.md](tutoriais.md).
 
@@ -52,7 +56,7 @@ py preparar_ambiente.py            # Windows
 python3 preparar_ambiente.py       # Linux ou WSL
 ```
 
-As versões escolhidas e o porquê de cada uma estão na seção 6 de [achados_dos_zips.md](achados_dos_zips.md). Em resumo: OpenCV Contrib 4.14, TensorFlow 2.21 com Keras 3.15, scikit-learn 1.9, dlib e face_recognition.
+As versões escolhidas e o porquê de cada uma estão na seção 6 de [achados_dos_zips.md](achados_dos_zips.md). Em resumo: OpenCV Contrib 4.14, TensorFlow 2.21 com Keras 3.15, PyTorch 2.14 com torchvision (aula 15), ultralytics (aula 13), scikit-learn 1.9, dlib e face_recognition.
 
 ## Material que não veio nos zips
 

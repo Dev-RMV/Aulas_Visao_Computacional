@@ -1,6 +1,8 @@
-# Requisitos gerais para rodar TODOS os scripts das 12 aulas do PVA.
-# Levantado em 10/09/2026 a partir dos imports dos 219 scripts e das versões
-# publicadas no PyPI nessa data. Detalhes e justificativas em achados_dos_zips.md, seção 6.
+# Requisitos gerais para rodar TODOS os scripts das 16 aulas do PVA.
+# Levantado em 10/09/2026 a partir dos imports dos 219 scripts das aulas 01 a 12 e
+# ampliado em 22/09/2026 com as aulas 13 a 16 (353 scripts no total), sempre com as
+# versões publicadas no PyPI nessas datas. Detalhes e justificativas em
+# achados_dos_zips.md, seção 6.
 #
 # Caminho automático: `py preparar_ambiente.py` (Windows) ou `python3 preparar_ambiente.py`
 # (Linux e WSL) faz tudo o que está descrito abaixo, inclusive obter o Python 3.13.
@@ -13,6 +15,7 @@
 #   python -m pip install --upgrade pip
 #   pip install -r requirements.txt
 #   pip install --no-deps -r requirements_face_recognition.txt
+#   pip install --no-deps -r requirements_ultralytics.txt
 #
 # O segundo pip é obrigatório para as aulas 03 (script 15) e 06. Explicação:
 # face-recognition declara dependência do pacote "dlib", que no PyPI só existe como
@@ -21,6 +24,11 @@
 # satisfaz a dependência. Por isso face-recognition entra com --no-deps, e as
 # dependências dele (dlib-bin, face-recognition-models, Click, Pillow, numpy) já
 # estão listadas aqui.
+#
+# O terceiro pip é só para a aula 13 (scripts 11, 12 e 29, YOLOv8n). O ultralytics
+# declara dependência de "opencv-python", que instalaria um segundo módulo cv2 por
+# cima do opencv-contrib-python e quebraria o cv2.face. Com --no-deps ele entra
+# sozinho, e tudo o que ele usa já está listado abaixo.
 
 # --- OpenCV -------------------------------------------------------------------
 # Versão 4.x fixada de propósito: o 5.0 (julho de 2026) mudou a API e o código do
@@ -29,6 +37,7 @@
 # Não instalar opencv-python junto: os dois pacotes conflitam no mesmo módulo cv2.
 # O SURF (aula 03, script 20) não existe nem no contrib do PyPI, que é compilado
 # sem os módulos nonfree; o script já prevê esse caso e cai no ORB.
+# O cv2.dnn desta versão lê TFLite (aula 14), ONNX e Darknet (aula 13).
 opencv-contrib-python==4.14.0.94
 
 # --- Numérico e dados ----------------------------------------------------------
@@ -38,11 +47,33 @@ matplotlib==3.11.1
 scikit-learn==1.9.0
 joblib>=1.4
 
-# --- Deep learning -------------------------------------------------------------
+# --- Deep learning: TensorFlow e Keras ------------------------------------------
 # TensorFlow 2.21.0 é o mais recente. No Windows nativo roda só em CPU.
 # Keras 3.15.1 é o mais recente e satisfaz o "keras>=3.12" exigido pelo TF 2.21.
 tensorflow==2.21.0
 keras==3.15.1
+
+# --- Deep learning: PyTorch (aula 15, e base do ultralytics na aula 13) ----------
+# A wheel "torch" do PyPI é só CPU no Windows (a versão instalada aparece como
+# 2.14.0+cpu). Para GPU, usar o índice de https://pytorch.org. O torchvision 0.29
+# é o par do torch 2.14; os pesos de fcn_resnet50 e deeplabv3_resnet50 (aula 15)
+# são baixados para ~/.cache/torch/hub/checkpoints/ na primeira execução.
+torch==2.14.0
+torchvision==0.29.0
+
+# --- Utilidades das aulas 13 a 15 ----------------------------------------------
+psutil==7.2.2          # memória RSS do processo (aula 14, scripts 16 e 17; aula 15, script 19)
+tabulate==0.10.0       # tabela em texto (aula 15, script 20); não aparece em nenhum requirements do professor
+# Dependências declaradas pelo ultralytics 8.4.160, fixadas nas versões instaladas em 22/09/2026.
+# O próprio ultralytics fica em requirements_ultralytics.txt (--no-deps).
+cloudpickle==3.1.2
+filelock==4.0.1
+PyYAML==6.0.3
+requests==2.34.2
+polars==1.44.2
+nvidia-ml-py==13.610.43
+ultralytics-thop==2.1.6
+ultralytics-platform==0.1.54
 
 # --- Reconhecimento facial (aulas 03 e 06) --------------------------------------
 dlib-bin==20.0.1

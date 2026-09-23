@@ -1,0 +1,9 @@
+# Instalar DEPOIS do requirements.txt e obrigatoriamente com --no-deps:
+#   pip install --no-deps -r requirements_ultralytics.txt
+# Motivo: o ultralytics declara dependência de "opencv-python", que conflita com o
+# opencv-contrib-python do projeto (os dois instalam o mesmo módulo cv2). As demais
+# dependências dele (torch, torchvision, numpy, matplotlib, Pillow, PyYAML, requests,
+# psutil, polars, cloudpickle, filelock, nvidia-ml-py, ultralytics-thop e
+# ultralytics-platform) já estão no requirements.txt. Usado só pela aula 13
+# (scripts 11, 12 e 29, YOLOv8n); sem ele esses três scripts avisam e encerram.
+ultralytics==8.4.160

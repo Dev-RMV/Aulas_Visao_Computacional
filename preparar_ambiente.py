@@ -10,10 +10,11 @@ privilégios de administrador:
    do usuário e usa ele para baixar um Python 3.13 isolado.
 3. Cria o ambiente virtual (`.venv` no Windows, `.venv_linux` no Linux, porque
    a mesma pasta pode ser vista pelos dois sistemas via /mnt/c).
-4. Instala `requirements.txt` e, com --no-deps, `requirements_face_recognition.txt`.
+4. Instala `requirements.txt` e, com --no-deps, `requirements_face_recognition.txt`
+   e `requirements_ultralytics.txt`.
 5. No Linux, confere as bibliotecas de sistema que o OpenCV exige.
 6. Roda uma verificação: versões, Keras com backend TensorFlow, OpenCV contrib,
-   dlib e face_recognition.
+   dlib e face_recognition, PyTorch com torchvision, ultralytics.
 
 Uso:
     Windows:  py preparar_ambiente.py
@@ -44,6 +45,7 @@ RAIZ = Path(__file__).resolve().parent
 VERSAO_PYTHON = "3.13"
 REQUISITOS = RAIZ / "requirements.txt"
 REQUISITOS_FACE = RAIZ / "requirements_face_recognition.txt"
+REQUISITOS_ULTRA = RAIZ / "requirements_ultralytics.txt"
 URL_UV_LINUX = "https://astral.sh/uv/install.sh"
 URL_UV_WINDOWS = "https://astral.sh/uv/install.ps1"
 
@@ -213,15 +215,17 @@ def criar_venv(python_exe: str, venv: Path, sistema: str, recriar: bool) -> Path
 # ----------------------------------------------------------------------------
 
 def instalar_pacotes(py_venv: Path) -> None:
-    for arq in (REQUISITOS, REQUISITOS_FACE):
+    for arq in (REQUISITOS, REQUISITOS_FACE, REQUISITOS_ULTRA):
         if not arq.is_file():
             sys.exit(f"Arquivo não encontrado: {arq}")
     passo("Atualizando o pip")
     rodar([str(py_venv), "-m", "pip", "install", "--upgrade", "pip", "-q"])
-    passo(f"Instalando {REQUISITOS.name} (TensorFlow tem cerca de 350 MB, pode demorar)")
+    passo(f"Instalando {REQUISITOS.name} (TensorFlow tem cerca de 350 MB e o PyTorch cerca de 250 MB, pode demorar)")
     rodar([str(py_venv), "-m", "pip", "install", "-r", str(REQUISITOS)])
     passo(f"Instalando {REQUISITOS_FACE.name} com --no-deps (a dependência dlib é atendida pelo dlib-bin)")
     rodar([str(py_venv), "-m", "pip", "install", "--no-deps", "-r", str(REQUISITOS_FACE)])
+    passo(f"Instalando {REQUISITOS_ULTRA.name} com --no-deps (o ultralytics declara opencv-python, mas o cv2 vem do contrib)")
+    rodar([str(py_venv), "-m", "pip", "install", "--no-deps", "-r", str(REQUISITOS_ULTRA)])
 
 
 # ----------------------------------------------------------------------------
@@ -294,6 +298,20 @@ try:
     face_recognition.face_locations(np.zeros((64, 64, 3), np.uint8))
     linha("dlib", dlib.__version__); linha("face_recognition", "importa e roda face_locations")
 except Exception as e: falhas.append(f"face_recognition: {e}")
+try:
+    import torch, torchvision, tabulate, psutil
+    from torchvision.models.segmentation import fcn_resnet50, deeplabv3_resnet50
+    from torchvision import transforms
+    (torch.zeros(2, 3) + 1).sum().item()
+    linha("torch", f"{torch.__version__}  cuda={torch.cuda.is_available()}")
+    linha("torchvision", f"{torchvision.__version__}  fcn_resnet50 e deeplabv3_resnet50 importam")
+    linha("tabulate / psutil", f"{tabulate.__version__} / {psutil.__version__}")
+except Exception as e: falhas.append(f"torch/torchvision: {e}")
+try:
+    import ultralytics
+    from ultralytics import YOLO
+    linha("ultralytics", f"{ultralytics.__version__}  (o peso yolov8n.pt é baixado no primeiro uso)")
+except Exception as e: falhas.append(f"ultralytics: {e}")
 print()
 if falhas:
     print("FALHAS:"); [print("  - " + f) for f in falhas]; sys.exit(1)
@@ -393,7 +411,8 @@ def main() -> int:
         print("Ou rodar direto:        ./" + venv.name + "/bin/python caminho/do/script.py")
         if eh_wsl:
             print("Janelas do OpenCV (cv2.imshow) no WSL exigem WSLg (Windows 11) ou um servidor X.")
-    print("Observação: 'pip check' reclama que falta dlib. É esperado: o módulo vem do dlib-bin.")
+    print("Observação: 'pip check' reclama que faltam dlib e opencv-python. É esperado: o dlib vem do")
+    print("dlib-bin e o cv2 vem do opencv-contrib-python (ver os cabeçalhos dos requirements).")
     print("FIM_PREPARO " + ("OK" if ok else "FALHA"))
     return 0 if ok else 1
 

@@ -21,3 +21,11 @@ Aula 10 – Rastreamento
 Aula 11 – MNIST
 
 Aula 12 – DNN e Caffe
+
+Aula 13 - YOLO e SSD
+
+Aula 14 - OpenCV DNN
+
+Aula 15 - HSV, ORB, DeepLabV3, ResNET50
+
+Aula 16 - Calibração

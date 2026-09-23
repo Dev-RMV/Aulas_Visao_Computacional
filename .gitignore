@@ -25,3 +25,23 @@ aula_12_DNN_Caffe/models/
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Aulas 13 a 16 (22/09/2026): pastas que os scripts geram ou que recebem modelos e mídia baixados à parte
+aula_13_YOLO_SSD/exemplos_em_python/dados/
+aula_13_YOLO_SSD/exemplos_em_python/modelos/
+aula_13_YOLO_SSD/exemplos_em_python/relatorios/*
+!aula_13_YOLO_SSD/exemplos_em_python/relatorios/.gitkeep
+aula_14_OpenCV_DNN/exemplos_em_python/data/
+aula_14_OpenCV_DNN/exemplos_em_python/modelos/
+aula_15_HSV_ORB_DeepLabV3_ResNet50/exemplos_em_python/imagens/
+aula_15_HSV_ORB_DeepLabV3_ResNet50/exemplos_em_python/relatorio/*
+!aula_15_HSV_ORB_DeepLabV3_ResNet50/exemplos_em_python/relatorio/.gitkeep
+!aula_15_HSV_ORB_DeepLabV3_ResNet50/exemplos_em_python/relatorio/RELATORIO_INTEGRATIVO_MODELO.md
+aula_16_Calibracao/exemplos_em_python/camera_sintetica.npz
+aula_16_Calibracao/exemplos_em_python/dados_sinteticos/video_tabuleiro.avi
+aula_16_Calibracao/exemplos_em_python/dados_sinteticos/pouca_var_*.png
+
+# Pesos de detectores (ultralytics baixa o yolov8n.pt na pasta de trabalho)
+*.pt
+*.onnx
+*.weights

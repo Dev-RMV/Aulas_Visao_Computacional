@@ -1,0 +1,8 @@
+opencv-python
+numpy
+pillow
+psutil
+tensorflow
+pandas
+matplotlib
+notebook
