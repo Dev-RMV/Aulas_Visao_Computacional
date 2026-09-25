@@ -61,7 +61,7 @@ Concluído:
 
 Venv `.venv` (Windows) na raiz com Python 3.13.5, requirements instalados em 10/09/2026 e ampliados em 22/09/2026 (torch 2.14.0+cpu, torchvision 0.29.0, tabulate, psutil, dependências do ultralytics; ultralytics 8.4.160 com `--no-deps`). `py preparar_ambiente.py` rodado de novo em 22/09: venv reaproveitado, três requirements instalados, verificação sem falhas. Nenhum script do professor foi executado ainda. Repositório git em `main`, remoto público `https://github.com/Dev-RMV/Aulas_Visao_Computacional` (criado em 10/09/2026). Fim de linha LF fixado por `.gitattributes` e `core.autocrlf=false` local. Venvs, `__pycache__`, `saidas/`, `resultados/`, modelos `.keras`/`.h5`/`.tflite`/`.pt`/`.onnx`/`.weights`, `aula_12_DNN_Caffe/models/` e as pastas geradas das aulas 13 a 16 ficam fora do git.
 
-**Sem commit:** `tutorial_html/` (desde 14/09), as quatro aulas novas, e as alterações de 22/09 em `CLAUDE.md`, `README.md`, `achados_dos_zips.md`, `tutoriais.md`, `requirements.txt`, `requirements_ultralytics.txt`, `preparar_ambiente.py`, `.gitignore` e `nome_pastas.txt` (editado pelo usuário, em CRLF; o git normaliza para LF ao commitar). As pastas `.idea/` (raiz e aula 01) são do IDE do usuário e não estão no `.gitignore`.
+**Commitado e publicado:** as 16 aulas, `tutorial_html/` e toda a documentação estão em `main` e no GitHub desde o commit `e935ac1` do usuário (23/09/2026, "Update com os 4 últimos ZIPs, sem conferência humana."). **Sem commit:** só as correções de animação de 24/09 em `tutorial_html/index.html` e este `CLAUDE.md`. As pastas `.idea/` citadas antes não existem mais.
 
 ## Pendências (resumo, detalhes em achados_dos_zips.md seção 4)
 
@@ -93,7 +93,7 @@ Ambiente:
 
 ## Próximos passos prováveis
 
-1. Commitar as aulas 13 a 16, a página `tutorial_html/` e as alterações de documentação, quando o usuário pedir.
+1. Commitar as correções de animação de 24/09 (`tutorial_html/index.html` e `CLAUDE.md`), quando o usuário pedir. Antes de afirmar o que está ou não commitado, conferir com `git status` e `git log`, não com este arquivo.
 2. Usuário consegue o material faltante e pede para colocar nas pastas certas.
 3. Venv pronto. Para recriar ou preparar outra máquina: `py preparar_ambiente.py` (Windows) ou `python3 preparar_ambiente.py` (Linux). Flags: `--recriar`, `--sem-verificacao`, `--venv-dir`, `--python`.
 4. Rodar os exemplos aula a aula, começando pelas autossuficientes: 01, 02, 03, 07, 08, 09, 10, 16, e as que só precisam de internet na primeira vez: 14, 15. A aula 13 roda sem material até o 10 e de 16 a 35.
@@ -110,3 +110,5 @@ Ambiente:
 - 10/09/2026: git iniciado, `README.md`, `.gitignore` e `.gitattributes` criados, repositório público `Dev-RMV/Aulas_Visao_Computacional` publicado com 289 arquivos.
 - 14/09/2026: projeto restaurado ao estado do GitHub a pedido do usuário (`reset --hard origin/main` e `clean -fd`), o que descartou o notebook da aula 01 e alterações locais em `CLAUDE.md`, `README.md`, `requirements.txt` e `tutoriais.md`, nenhuma delas commitada. Em seguida, `tutorial_html/index.html` criado. Sem commit.
 - 22/09/2026: aulas 13 a 16 processadas a partir de quatro zips novos (134 scripts, nenhuma correção), quatro tutoriais escritos por forks paralelos, `achados_dos_zips.md`, `tutoriais.md`, `README.md` e `.gitignore` atualizados, `requirements.txt` ampliado com torch, torchvision, tabulate, psutil e as dependências do ultralytics, `requirements_ultralytics.txt` criado (`--no-deps`), `preparar_ambiente.py` atualizado e rodado com sucesso, página HTML ampliada com quatro seções e quatro laboratórios e verificada no Chrome. Sem commit.
+- 23/09/2026: o usuário commitou e publicou tudo de 14/09 e 22/09 no commit `e935ac1` (189 arquivos), sem atualizar este arquivo.
+- 24/09/2026: laboratórios das aulas 01, 08 e 09 da página HTML não animavam com `prefers-reduced-motion: reduce` (Windows com "Efeitos de animação" desligado, caso da máquina do usuário). Agora os três têm botão de animar e pausar e começam parados só quando o movimento reduzido está ligado, como os das aulas 10 e 13 já faziam. Testado no Chrome com a preferência ativa. Para testar sem mexer no Windows: DevTools › Rendering › "Emulate CSS media feature prefers-reduced-motion". Sem commit.

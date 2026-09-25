@@ -250,6 +250,9 @@ button.bt[aria-pressed=true]{background:var(--ambar); border-color:var(--ambar);
           <input type="range" id="c1b-n" min="1" max="90" step="1" value="30"></label>
         <label class="ctl"><span class="cab">Instabilidade da captura <span class="val" id="c1b-r-v">média</span></span>
           <input type="range" id="c1b-r" min="0" max="100" step="1" value="45"></label>
+        <div class="linha-btn">
+          <button class="bt" id="c1b-play" aria-pressed="true">pausar o gráfico</button>
+        </div>
         <div class="leitura" id="c1b-out">—</div>
       </div>
       <p class="nota">O Exemplo 03 imprime o FPS quadro a quadro e o número pula sem parar. Aumente a janela e veja o valor se acalmar: é exatamente o que <code>deque(maxlen=30)</code> faz no Exemplo 07. Janela grande estabiliza, mas demora a reagir a uma queda real de desempenho.</p>
@@ -860,6 +863,9 @@ button.bt[aria-pressed=true]{background:var(--ambar); border-color:var(--ambar);
           <input type="range" id="c9b-es" min="105" max="180" step="5" value="120"></label>
         <label class="ctl"><span class="cab">Limiar de IoU na NMS <span class="val" id="c9b-iou-v">0,40</span></span>
           <input type="range" id="c9b-iou" min="5" max="95" step="5" value="40"></label>
+        <div class="linha-btn">
+          <button class="bt" id="c9b-play" aria-pressed="true">parar a varredura</button>
+        </div>
         <div class="leitura" id="c9b-out">—</div>
       </div>
       <p class="nota">Reduza o passo para 2 px e olhe a contagem de janelas: cada uma delas exige um HOG e uma decisão do SVM. É esse número que explica por que o detector clássico não roda a 30 quadros por segundo, e por que o YOLO trocou a varredura por <strong>uma única passada da rede sobre a imagem inteira</strong>.</p>
@@ -1798,8 +1804,16 @@ reg("lab1b", function(el){
     var v = +e.target.value;
     txt("c1b-r-v", v < 20 ? "baixa" : v < 60 ? "média" : "alta");
   });
-  if (V.REDUZ){ for (var i = 0; i < 200; i++) passo(); }
-  else V.animar(el, function(){ passo(); });
+  var animando = !V.REDUZ;                          /* com movimento reduzido, começa parada e o botão liga */
+  function rotuloPlay(){
+    var b = num("c1b-play");
+    b.setAttribute("aria-pressed", animando ? "true" : "false");
+    b.textContent = animando ? "pausar o gráfico" : "animar o gráfico";
+  }
+  num("c1b-play").addEventListener("click", function(){ animando = !animando; rotuloPlay(); });
+  rotuloPlay();
+  if (V.REDUZ){ for (var i = 0; i < 200; i++) passo(); }  /* já abre com a curva desenhada */
+  V.animar(el, function(){ if (animando) passo(); });
 });
 
 /* =============== AULA 02 — saturação, nitidez e limiar =============== */
@@ -2634,7 +2648,7 @@ reg("lab8", function(el){
     pool = !pool; this.setAttribute("aria-pressed", pool ? "true" : "false"); desenhar();
   });
   calcular();
-  if (!V.REDUZ) V.animar(el, function(t){
+  V.animar(el, function(t){                     /* só anda a pedido do botão, então vale mesmo com movimento reduzido */
     if (!animando) return;
     if (t - t0 < 45) return;
     t0 = t;
@@ -2789,7 +2803,16 @@ reg("lab9b", function(el){
   ligar("c9b-es", function(e){ txt("c9b-es-v", br(e.target.value/100)); pintarNMS(); });
   ligar("c9b-iou", function(e){ txt("c9b-iou-v", br(e.target.value/100)); pintarNMS(); });
   pintarNMS(); pintarScan();
-  if (!V.REDUZ) V.animar(el, function(t){
+  var animando = !V.REDUZ;                          /* com movimento reduzido, começa parada e o botão liga */
+  function rotuloPlay(){
+    var b = num("c9b-play");
+    b.setAttribute("aria-pressed", animando ? "true" : "false");
+    b.textContent = animando ? "parar a varredura" : "animar a varredura";
+  }
+  num("c9b-play").addEventListener("click", function(){ animando = !animando; rotuloPlay(); });
+  rotuloPlay();
+  V.animar(el, function(t){
+    if (!animando) return;
     if (t - t0 < 60) return;
     t0 = t;
     var es = vg("c9b-es")/100, f = Math.pow(es, escalaAtual), st = Math.max(6, vg("c9b-st"))*f;
